@@ -74,7 +74,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.35 seconds to execute.
+## W-NOMINATE took 2.65 seconds to execute.
 ```
 
 ``` r
@@ -164,11 +164,6 @@ ggplot () +
                arrow = arrow(length = unit(0.2,"cm")))+
   geom_text(data=with_cuts, 
                aes(x = x_1a, y = y_1a, label = Bill_ID), 
-               size=2.5, 
-               nudge_y = 0.03,
-               check_overlap = TRUE) +
-  geom_text(data=with_cuts, 
-               aes(x = x_2a, y = y_2a, label = Bill_ID), 
                size=2.5, 
                nudge_y = 0.03,
                check_overlap = TRUE) +
