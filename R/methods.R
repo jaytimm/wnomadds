@@ -1,14 +1,14 @@
+#' Build/extract cutline data
+#'
+#' Functions extract cutting line data for usage in 'tidier' frameworks.
+#'
+#' @name get_cut_data
+#' @param x A nomObj via wnominate::wnominate output
+#' @param rollcall_obj An rollcall object from pscl package
+#' @return A data frame
 
-# Function: add.cutline
-# Reads in output from W-NOMINATE and adds a cutting line to existing plot
-#   INPUTS: a numeric vector of length 4, cutData
-#       midpoint1d<-cutData[1]
-#       spread1d<-cutData[2]
-#       midpoint2d<-cutData[3]
-#       spread2d<-cutData[4]
 
-
-##
+#Modified from wnominate package
 add.cutline <- function(cutData,weight) {
 
     slope <- -cutData[2]/(cutData[4]*weight)
@@ -41,7 +41,9 @@ add.cutline <- function(cutData,weight) {
 }
 
 
-##
+#Modified from wnominate package
+#' @export
+#' @rdname get_cut_data
 wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
 
     weight<-x$weight[dims[2]]/x$weight[dims[1]]
@@ -85,7 +87,7 @@ get_arrows <- function(cuts, arrow_length = 0.05){
 }
 
 
-
+#Modified from NOMINATE code
 get_polarity <- function (x, rollcall_obj, cuts) {
 
   x1 <- x$rollcalls[cuts$Bill_ID,]
@@ -112,7 +114,6 @@ get_polarity <- function (x, rollcall_obj, cuts) {
     kerrors12 <- sum(kerrors1==1)+sum(kerrors2==1)
     kerrors34 <- sum(kerrors3==1)+sum(kerrors4==1)
 
-#
   if(kerrors12 < kerrors34){
       pol[i] <- -1
   }
@@ -120,13 +121,14 @@ get_polarity <- function (x, rollcall_obj, cuts) {
       pol[i] <- 1
 } }
 
-  pol}
+pol}
 
 
-
-##
+#Modified from wnominate package
+#' @export
+#' @rdname get_cut_data
 wnom_adds_get_cutlines <- function(x,
-        lines=50,dims=c(1,2), add_arrows = TRUE,...) {
+          dims=c(1,2), add_arrows = TRUE, rollcall_obj,...) {
 
     constrained <- ((abs(x$rollcalls[,"spread1D"]) > 0.0 | abs(x$rollcalls[,"spread2D"]) > 0.0)
         & (x$rollcalls[,"midpoint1D"]**2 + x$rollcalls[,"midpoint2D"]**2) < .95)
