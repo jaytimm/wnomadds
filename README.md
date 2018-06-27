@@ -74,7 +74,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.65 seconds to execute.
+## W-NOMINATE took 2.47 seconds to execute.
 ```
 
 ``` r
@@ -108,7 +108,7 @@ house_data%>%
             check_overlap = TRUE, 
             hjust = 0, 
             nudge_x = 0.03)+
-  labs(title="New Mexico 53rd House Roll Call - 2018") +
+  labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
   coord_equal(ratio=1)
 ```
 
