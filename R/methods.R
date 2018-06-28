@@ -86,9 +86,9 @@ get_arrows <- function(cuts, arrow_length = 0.05){
   cbind (cuts, arrows)
 }
 
-x <- resultd2
-rollcall_obj <- datRC
-i <- 15
+#x <- resultd2
+#rollcall_obj <- datRC
+#i <- 15
 #Modified from NOMINATE code
 get_polarity <- function (x, rollcall_obj, cuts) {
 
