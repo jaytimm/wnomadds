@@ -116,12 +116,12 @@ get_polarity <- function (x, rollcall_obj, cuts) {
     errors2 <- ivote==6 & polarity <= 0
     errors3 <- ivote==1 & polarity <= 0
     errors4 <- ivote==6 & polarity >= 0
-    #kerrors1 <- ifelse(is.na(errors1),9,errors1)
-    #kerrors2 <- ifelse(is.na(errors2),9,errors2)
-    #kerrors3 <- ifelse(is.na(errors3),9,errors3)
-    #kerrors4 <- ifelse(is.na(errors4),9,errors4)
+    kerrors1 <- ifelse(is.na(errors1),9,errors1)
+    kerrors2 <- ifelse(is.na(errors2),9,errors2)
+    kerrors3 <- ifelse(is.na(errors3),9,errors3)
+    kerrors4 <- ifelse(is.na(errors4),9,errors4)
     kerrors12 <- sum(kerrors1==1)+sum(kerrors2==1)
-    kerrors34 <- sum(errors3==TRUE)+sum(errors4==TRUE)
+    kerrors34 <- sum(kerrors3==1)+sum(kerrors4==1)
 
   if(kerrors12 < kerrors34){
       pol[i] <- -1
