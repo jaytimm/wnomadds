@@ -71,11 +71,25 @@ wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
 
 get_arrows <- function(cuts, arrow_length = 0.05){
 
-cuts$x_1a <- cuts$x_1 + cuts$pol*arrow_length
-cuts$y_1a <- cuts$y_1 + cuts$pol*arrow_length
-cuts$x_2a <- cuts$x_2 + cuts$pol*arrow_length
-cuts$y_2a <- cuts$y_2 + cuts$pol*arrow_length
-cuts
+  arrows <- data.frame()
+  for (i in 1:nrow(cuts)) {
+
+  v <- c(cuts$x_2[i]- cuts$x_1[i], cuts$y_2[i] - cuts$y_1[i]) # calculate vector
+  #v <- v/sqrt((v[1]**2 + v[2]**2)) # normalize vector
+  #vnp <- c( -v[2], v[1] ) # perpendicular unit vector
+
+  if (cuts$pol[i] == 1) {vnp <- c( v[2], v[2] )} else {
+    vnp <- c( -v[2], v[1] ) }
+
+  arrows <- rbind(arrows,
+                  data.frame(x_1a = cuts$x_1[i] + arrow_length*vnp[1],
+                             y_1a = cuts$y_1[i] + arrow_length*vnp[2],
+                             x_2a = cuts$x_2[i] + arrow_length*vnp[1],
+                             y_2a = cuts$y_2[i] + arrow_length*vnp[2])
+                  )
+  }
+  cbind (cuts, arrows)
+
 }
 
 
