@@ -75,16 +75,20 @@ get_arrows <- function(cuts, arrow_length = 0.05){
   for (i in 1:nrow(cuts)) {
 
   v <- c(cuts$x_2[i]- cuts$x_1[i], cuts$y_2[i] - cuts$y_1[i]) # calculate vector
-  v <- v/sqrt((v[1]**2 + v[2]**2)) # normalize vector
+  #v <- v/sqrt((v[1]**2 + v[2]**2)) # normalize vector
   vnp <- c( -v[2], v[1] ) # perpendicular unit vector
 
-  arrows <- rbind(arrows,data.frame(x_1a = cuts$x_1[i] + arrow_length*vnp[1]*cuts$pol[i],
-             y_1a = cuts$y_1[i] + arrow_length*vnp[2]*cuts$pol[i],
-             x_2a = cuts$x_2[i] + arrow_length*vnp[1]*cuts$pol[i],
-             y_2a = cuts$y_2[i] + arrow_length*vnp[2]*cuts$pol[i]))
+  arrows <- rbind(arrows,
+                  data.frame(x_1a = cuts$x_1[i] + arrow_length*vnp[1]*cuts$pol[i],
+                             y_1a = cuts$y_1[i] + arrow_length*vnp[2]*cuts$pol[i],
+                             x_2a = cuts$x_2[i] + arrow_length*vnp[1]*cuts$pol[i],
+                             y_2a = cuts$y_2[i] + arrow_length*vnp[2]*cuts$pol[i]))
   }
   cbind (cuts, arrows)
 }
+
+
+
 
 #x <- resultd2
 #rollcall_obj <- datRC
@@ -116,7 +120,7 @@ get_polarity <- function (x, rollcall_obj, cuts) {
     #kerrors2 <- ifelse(is.na(errors2),9,errors2)
     #kerrors3 <- ifelse(is.na(errors3),9,errors3)
     #kerrors4 <- ifelse(is.na(errors4),9,errors4)
-    kerrors12 <- sum(errors1==TRUE)+sum(errors2==TRUE)
+    kerrors12 <- sum(kerrors1==1)+sum(kerrors2==1)
     kerrors34 <- sum(errors3==TRUE)+sum(errors4==TRUE)
 
   if(kerrors12 < kerrors34){
