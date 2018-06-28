@@ -98,10 +98,13 @@ get_polarity <- function (x, rollcall_obj, cuts) {
   oc1 <-  x$legislators$coord1D
   oc2 <-  x$legislators$coord2D
 
+  x2 <- rollcall_obj$votes[,cuts$Bill_ID]
+
+
   for (i in 1:length(ws)) {
     polarity <- oc1*N1[i] + oc2*N2[i] - ws[i]
 
-    vote <- rollcall_obj$votes[,i]
+    vote <- x2[,i]
     ivote <- as.integer(vote)
     errors1 <- ivote==1 & polarity >= 0
     errors2 <- ivote==6 & polarity <= 0
