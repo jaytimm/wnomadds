@@ -78,13 +78,13 @@ get_arrows <- function(cuts, arrow_length = 0.05){
   #v <- v/sqrt((v[1]**2 + v[2]**2)) # normalize vector
   #vnp <- c( -v[2], v[1] ) # perpendicular unit vector
 
-  #if (cuts$pol[i] == -1) {vnp <- c( v[2], -v[1] )} else {
-  #  vnp <- c( -v[2], v[1] ) } #Flips results
+  if (cuts$pol[i] == -1) {vnp <- c( v[2], -v[1] )} else {
+    vnp <- c( -v[2], v[1] ) } #Flips results
 
-  if (v[2]/v[1]>=0 && cuts$pol[i] == -1) vnp <- c( v[2], -v[1] )
-  if (v[2]/v[1]>=0 && cuts$pol[i] == 1) vnp <- c( -v[2], v[1] )
-  if (v[2]/v[1]<0 && cuts$pol[i] == -1) vnp <- c( -v[2], v[1] )
-  if (v[2]/v[1]<0 && cuts$pol[i] == 1) vnp <- c( v[2], -v[1] )
+  #if (v[2]/v[1]>=0 && cuts$pol[i] == -1) vnp <- c( v[2], -v[1] )
+  #if (v[2]/v[1]>=0 && cuts$pol[i] == 1) vnp <- c( -v[2], v[1] )
+  #if (v[2]/v[1]<0 && cuts$pol[i] == -1) vnp <- c( -v[2], v[1] )
+  #if (v[2]/v[1]<0 && cuts$pol[i] == 1) vnp <- c( v[2], -v[1] )
 
   #Also, simply adding polarity*arrow_length worked, just not perpendicular
   arrows <- rbind(arrows,
