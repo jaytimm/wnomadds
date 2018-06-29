@@ -74,7 +74,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.47 seconds to execute.
+## W-NOMINATE took 2.49 seconds to execute.
 ```
 
 ``` r
@@ -91,6 +91,7 @@ house_data <- resultd2$legislators %>% #May need to remove NAs
 
 ``` r
 library(ggthemes)
+
 house_data%>%
   ggplot(aes(x=coord1D, y=coord2D)) +
   geom_point(aes(color = Party),
@@ -101,15 +102,13 @@ house_data%>%
   theme(legend.position = 'bottom', 
         plot.title = element_text(size=13), 
         axis.title = element_text(size=10)) +
-  ylab ("Dimension 2") +
-  xlab ("Dimension 1") +
   geom_text(aes(label=Representative), 
             size=2.5, 
             check_overlap = TRUE, 
             hjust = 0, 
             nudge_x = 0.03)+
   labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
-  coord_equal(ratio=1)
+  coord_equal(ratio=1) 
 ```
 
 ![](figure-markdown_github/unnamed-chunk-10-1.png)
@@ -117,7 +116,7 @@ house_data%>%
 Demonstrate how to extract cutting lines using `wnom_adds`.
 
 ``` r
-with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, rollcall_obj =   datRC)
+with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, rollcall_obj = datRC)
 ## Warning in FUN(newX[, i], ...): Couldn't solve for points on the unit circle!
 
 ## Warning in FUN(newX[, i], ...): Couldn't solve for points on the unit circle!
@@ -133,13 +132,13 @@ head(with_cuts)
 ## 4:        HB0026 -0.3645179 -0.97765640 -0.9311964 -0.2102093    1
 ## 5:        HB0027 -0.3375543 -0.35960803 -0.9413061  0.9331035    1
 ## 6:        HB0032  0.3891161 -0.01486458  0.9211887 -0.9998895   -1
-##          x_1a        y_1a        x_2a       y_2a
-## 1:  0.9209479 -0.48239478  0.72524892  0.7448917
-## 2:  1.0188058 -0.09721277 -0.45131972  0.9185457
-## 3:  0.9209479 -0.48239478  0.72524892  0.7448917
-## 4: -0.4026071 -0.96358797 -1.01574556 -0.2426009
-## 5: -0.3875508 -0.94189431 -0.40960457  0.9325152
-## 6:  0.3401862  0.93147811 -0.06379441 -0.9896001
+##          x_1a        y_1a       x_2a       y_2a
+## 1:  0.9329360 -0.48048319  0.7372370  0.7468033
+## 2:  1.0411715 -0.06484255 -0.4289541  0.9509159
+## 3:  0.9329360 -0.48048319  0.7372370  0.7468033
+## 4: -0.4005673 -0.96185329 -1.0137057 -0.2408663
+## 5: -0.4312748 -0.94240875 -0.4533285  0.9320008
+## 6:  0.2930622  0.94138776 -0.1109185 -0.9796905
 ```
 
 Plot legislators with cutting lines.
@@ -147,7 +146,7 @@ Plot legislators with cutting lines.
 ``` r
 ggplot () + 
   scale_colour_stata() + 
-  #theme_fivethirtyeight() +
+  theme_fivethirtyeight() +
   theme(plot.title = element_text(size=13),
         legend.position = 'bottom') +
   geom_point(data=house_data, 
@@ -172,3 +171,51 @@ ggplot () +
 ```
 
 ![](figure-markdown_github/unnamed-chunk-13-1.png)
+
+Cutting line selections.
+
+``` r
+select_cuts <- c("HM054")
+
+sub <- nmlegisdatr::nml_rollcall %>%
+  filter(Bill_ID %in% select_cuts) %>%
+  inner_join(house_data)
+## Joining, by = c("Chamber", "Representative")
+
+cut_sub <- subset(with_cuts, Bill_ID %in% select_cuts)
+```
+
+``` r
+sub %>%
+ggplot(aes(x=coord1D, y=coord2D)) +
+  geom_point(aes(color = Party_Vote, shape= Party_Vote, fill = Party_Vote),
+             size= 2.5) +
+  nmlegisdatr::nml_color_vote() +
+  nmlegisdatr::nml_fill_vote() +
+  nmlegisdatr::nml_shape_vote()+
+  theme(legend.position = 'bottom', 
+        plot.title = element_text(size=13), 
+        axis.title = element_text(size=10)) +
+  geom_text(aes(label=Representative), 
+            size=2.5, 
+            check_overlap = TRUE, 
+            hjust = 0, 
+            nudge_x = 0.03)+
+  geom_segment(data=cut_sub, 
+               aes(x = x_1, y = y_1, xend = x_2, yend = y_2)) +
+  geom_segment(data=cut_sub, 
+               aes(x = x_2, y = y_2, xend = x_2a, yend = y_2a), 
+               arrow = arrow(length = unit(0.2,"cm"))) +
+  geom_segment(data=cut_sub, 
+               aes(x = x_1, y = y_1, xend = x_1a, yend = y_1a), 
+               arrow = arrow(length = unit(0.2,"cm")))+
+  geom_text(data=cut_sub, 
+               aes(x = x_1a, y = y_1a, label = Bill_ID), 
+               size=2.5, 
+               nudge_y = 0.03,
+               check_overlap = TRUE) +
+  labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
+  coord_equal(ratio=1) 
+```
+
+![](figure-markdown_github/unnamed-chunk-15-1.png)
