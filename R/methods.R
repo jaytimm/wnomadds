@@ -108,38 +108,25 @@ get_arrows <- function(cuts, arrow_length = 0.05){
 #Modified from NOMINATE code
 get_polarity <- function (x, rollcall_obj, cuts) {
 
-  x1 <- x$rollcalls[cuts$Bill_ID,]
   pol <- vector()
-  ws <- x1$midpoint2D
-  N1 <- x1$spread1D
-  N2 <- x1$spread2D
-  oc1 <-  x$legislators$coord1D
-  oc2 <-  x$legislators$coord2D
 
+  x1 <- x$rollcalls[cuts$Bill_ID,]
+  leg1 <-  x$legislators$coord1D
   x2 <- rollcall_obj$votes[,cuts$Bill_ID]
 
 
-  for (i in 1:length(ws)) {
-    polarity <- oc1*N1[i] + oc2*N2[i] #- ws[i]
-    #polarity <- oc1 #For now
-    vote <- x2[,i]
-    ivote <- as.integer(vote)
-    errors1 <- ivote==1 & polarity >= 0 #Reps - Yea
-    errors2 <- ivote==6 & polarity <= 0 #Dems - Nay
-    errors3 <- ivote==1 & polarity <= 0 #Dems - Yea
-    errors4 <- ivote==6 & polarity >= 0 #Reps - Nay
-    kerrors1 <- ifelse(is.na(errors1),9,errors1)
-    kerrors2 <- ifelse(is.na(errors2),9,errors2)
-    kerrors3 <- ifelse(is.na(errors3),9,errors3)
-    kerrors4 <- ifelse(is.na(errors4),9,errors4)
-    kerrors12 <- sum(kerrors1==1)+sum(kerrors2==1) #Reps - Yea // Dems - Nay
-    kerrors34 <- sum(kerrors3==1)+sum(kerrors4==1) #Dems - Yea // Reps - Nay
+  for (i in 1:nrow(cuts)) {
+    q <- data.frame(x= c(cuts$x_1[i],cuts$x_2[i]), y = c(cuts$y_1[i],cuts$y_2[i]))
+    q1 <- lm(q$y ~ q$x)
+    ln <- q1$coefficients[2]*leg1 + q1$coefficients[1]
+    ln <- data.frame(cbind(ln, vote=as.integer(x2[,i])))
+    ln <- subset(ln, vote==1)
+    ln$pol <- ln$ln > 0
 
-  if(kerrors12 < kerrors34){ #Towards dems
-      pol[i] <- -1
-  }
-  if(kerrors12 >= kerrors34){ #Towards reps
-      pol[i] <- 1
+    q2 <- data.frame(table(ln$vote,ln$pol))
+
+    if( q2$Freq[q2$Var2=='TRUE'] >  q2$Freq[q2$Var2=='FALSE']){ #Towards dems
+      pol[i] <- 1} else {pol[i] <- -1}
 } }
 
 pol}
