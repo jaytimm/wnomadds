@@ -48,7 +48,7 @@ resultd2 <- wnominate::wnominate (datRC,
                        dims=2, 
                        minvotes=20,
                        lop=0.025,trials=3, 
-                       polarity=c(1,1),
+                       polarity=c(30,48),
                        verbose=FALSE)
 ## 
 ## Preparing to run W-NOMINATE...
@@ -81,7 +81,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.42 seconds to execute.
+## W-NOMINATE took 2.41 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -139,19 +139,19 @@ The function returns cutline coordinates along with vote polarity.
 ``` r
 head(with_cuts)
 ##          Bill_ID        x_1         x_2        y_1        y_2 pols
-## 1:        HB0002  0.8715717  0.67587271 -0.4902681  0.7370184   -1
-## 2: HB0002HCONCUR  0.9903836 -0.47974198 -0.1383488  0.8774096   -1
-## 3:        HB0003  0.8715717  0.67587271 -0.4902681  0.7370184   -1
-## 4:        HB0026 -0.3645179 -0.97765640 -0.9311964 -0.2102093    1
-## 5:        HB0027 -0.3375543 -0.35960803 -0.9413061  0.9331035    1
+## 1:        HB0002  0.8715717  0.67587271 -0.4902681  0.7370184    1
+## 2: HB0002HCONCUR  0.9903836 -0.47974198 -0.1383488  0.8774096    1
+## 3:        HB0003  0.8715717  0.67587271 -0.4902681  0.7370184    1
+## 4:        HB0026 -0.3645179 -0.97765640 -0.9311964 -0.2102093   -1
+## 5:        HB0027 -0.3375543 -0.35960803 -0.9413061  0.9331035   -1
 ## 6:        HB0032  0.3891161 -0.01486458  0.9211887 -0.9998895   -1
-##          x_1a        y_1a       x_2a       y_2a
-## 1:  0.9329360 -0.48048319  0.7372370  0.7468033
-## 2:  1.0411715 -0.06484255 -0.4289541  0.9509159
-## 3:  0.9329360 -0.48048319  0.7372370  0.7468033
-## 4: -0.4005673 -0.96185329 -1.0137057 -0.2408663
-## 5: -0.4312748 -0.94240875 -0.4533285  0.9320008
-## 6:  0.2930622  0.94138776 -0.1109185 -0.9796905
+##          x_1a       y_1a       x_2a       y_2a
+## 1:  0.8102073 -0.5000531  0.6145084  0.7272334
+## 2:  0.9395956 -0.2118551 -0.5305299  0.8039033
+## 3:  0.8102073 -0.5000531  0.6145084  0.7272334
+## 4: -0.3284686 -0.9005394 -0.9416070 -0.1795524
+## 5: -0.2438338 -0.9402034 -0.2658876  0.9342061
+## 6:  0.2930622  0.9413878 -0.1109185 -0.9796905
 ```
 
 Plot legislators with cutting lines.
@@ -188,7 +188,7 @@ ggplot () +
 Cutting line selections.
 
 ``` r
-select_cuts <- c('HB0032')
+select_cuts <- c('HB0128')
 
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_ID %in% select_cuts) %>%
@@ -237,7 +237,8 @@ View multiple roll calls.
 
 ``` r
 select_cuts <- c('HB0032', 'HB0064', 'HB0100', 'HB0049', 'HB0325', 'HJM010',
-                 'HM106', 'SB0079', 'HB0002', 'HB0026', 'HB0098', 'HB0151')
+                 'HM106', 'SB0079', 'HB0002', 'HB0026', 'HB0098', 'HB0151',
+                 'HM009', 'HM54', 'SB0178', 'SB0189', 'HB0201')
 
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_ID %in% select_cuts) %>%
