@@ -81,7 +81,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.34 seconds to execute.
+## W-NOMINATE took 2.33 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -188,7 +188,7 @@ ggplot () +
 Cutting line selections.
 
 ``` r
-select_cuts <- c("HB0079")
+select_cuts <- c('HB0032')
 
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_ID %in% select_cuts) %>%
@@ -232,3 +232,57 @@ ggplot(aes(x=coord1D, y=coord2D)) +
 ```
 
 ![](figure-markdown_github/unnamed-chunk-15-1.png)
+
+View multiple roll calls.
+
+``` r
+select_cuts <- c('HB0032', 'HB0064', 'HB0100', 'HB0049', 'HB0325', 'HJM010',
+                 'HM106', 'SB0079')
+
+sub <- nmlegisdatr::nml_rollcall %>%
+  filter(Bill_ID %in% select_cuts) %>%
+  inner_join(house_data)
+## Joining, by = c("Chamber", "Representative")
+
+cut_sub <- subset(with_cuts, Bill_ID %in% select_cuts)
+```
+
+``` r
+sub %>%
+ggplot(aes(x=coord1D, y=coord2D)) +
+  geom_point(aes(color = Party_Vote, shape= Party_Vote, fill = Party_Vote),
+             size= 2.5) +
+  nmlegisdatr::nml_color_vote() +
+  nmlegisdatr::nml_fill_vote() +
+  nmlegisdatr::nml_shape_vote()+
+  theme(legend.position = 'bottom', 
+        plot.title = element_text(size=13), 
+        axis.title = element_text(size=10)) +
+  geom_text(aes(label=Representative), 
+            size=2.5, 
+            check_overlap = TRUE, 
+            hjust = 0, 
+            nudge_x = 0.03)+
+  geom_segment(data=cut_sub, 
+               aes(x = x_1, y = y_1, xend = x_2, yend = y_2)) +
+  geom_segment(data=cut_sub, 
+               aes(x = x_2, y = y_2, xend = x_2a, yend = y_2a), 
+               arrow = arrow(length = unit(0.2,"cm"))) +
+  geom_segment(data=cut_sub, 
+               aes(x = x_1, y = y_1, xend = x_1a, yend = y_1a), 
+               arrow = arrow(length = unit(0.2,"cm")))+
+  geom_text(data=cut_sub, 
+               aes(x = x_1a, y = y_1a, label = Bill_ID), 
+               size=2.5, 
+               nudge_y = 0.03,
+               check_overlap = TRUE) +
+  labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
+  coord_equal(ratio=1)+
+  facet_wrap(~Bill_ID, ncol = 4)
+```
+
+![](figure-markdown_github/unnamed-chunk-17-1.png)
+
+``` r
+  #
+```
