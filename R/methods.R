@@ -120,8 +120,8 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 
 
   for (i in 1:length(ws)) {
-    #polarity <- oc1*N1[i] + oc2*N2[i] - ws[i]
-    polarity <- oc1 #For now
+    polarity <- oc1*N1[i] + oc2*N2[i] #- ws[i]
+    #polarity <- oc1 #For now
     vote <- x2[,i]
     ivote <- as.integer(vote)
     errors1 <- ivote==1 & polarity >= 0 #Reps - Yea
