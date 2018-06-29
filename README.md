@@ -81,7 +81,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.41 seconds to execute.
+## W-NOMINATE took 2.39 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -252,7 +252,7 @@ cut_sub <- subset(with_cuts, Bill_ID %in% select_cuts)
 sub %>%
 ggplot(aes(x=coord1D, y=coord2D)) +
   geom_point(aes(color = Party_Vote, shape= Party_Vote, fill = Party_Vote),
-             size= 1.5) +
+             size= 1) +
   nmlegisdatr::nml_color_vote() +
   nmlegisdatr::nml_fill_vote() +
   nmlegisdatr::nml_shape_vote()+
@@ -260,7 +260,7 @@ ggplot(aes(x=coord1D, y=coord2D)) +
         plot.title = element_text(size=13), 
         axis.title = element_text(size=10)) +
   geom_text(aes(label=Representative), 
-            size=1.5, 
+            size=1, 
             check_overlap = TRUE, 
             hjust = 0, 
             nudge_x = 0.03)+
@@ -272,11 +272,6 @@ ggplot(aes(x=coord1D, y=coord2D)) +
   geom_segment(data=cut_sub, 
                aes(x = x_1, y = y_1, xend = x_1a, yend = y_1a), 
                arrow = arrow(length = unit(0.2,"cm")))+
-  geom_text(data=cut_sub, 
-               aes(x = x_1a, y = y_1a, label = Bill_ID), 
-               size=2.5, 
-               nudge_y = 0.03,
-               check_overlap = TRUE) +
   labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
   coord_equal(ratio=1)+
   facet_wrap(~Bill_ID, ncol = 4)
