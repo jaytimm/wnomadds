@@ -67,7 +67,7 @@ wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
 }
 
 
-#i <- 19
+#i <- 8
 
 get_arrows <- function(cuts, arrow_length = 0.05){
 
@@ -120,25 +120,25 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 
 
   for (i in 1:length(ws)) {
-    polarity <- oc1*N1[i] + oc2*N2[i] - ws[i]
-
+    #polarity <- oc1*N1[i] + oc2*N2[i] - ws[i]
+    polarity <- oc1 #For now
     vote <- x2[,i]
     ivote <- as.integer(vote)
-    errors1 <- ivote==1 & polarity >= 0
-    errors2 <- ivote==6 & polarity <= 0
-    errors3 <- ivote==1 & polarity <= 0
-    errors4 <- ivote==6 & polarity >= 0
+    errors1 <- ivote==1 & polarity >= 0 #Reps - Yea
+    errors2 <- ivote==6 & polarity <= 0 #Dems - Nay
+    errors3 <- ivote==1 & polarity <= 0 #Dems - Yea
+    errors4 <- ivote==6 & polarity >= 0 #Reps - Nay
     kerrors1 <- ifelse(is.na(errors1),9,errors1)
     kerrors2 <- ifelse(is.na(errors2),9,errors2)
     kerrors3 <- ifelse(is.na(errors3),9,errors3)
     kerrors4 <- ifelse(is.na(errors4),9,errors4)
-    kerrors12 <- sum(kerrors1==1)+sum(kerrors2==1)
-    kerrors34 <- sum(kerrors3==1)+sum(kerrors4==1)
+    kerrors12 <- sum(kerrors1==1)+sum(kerrors2==1) #Reps - Yea // Dems - Nay
+    kerrors34 <- sum(kerrors3==1)+sum(kerrors4==1) #Dems - Yea // Reps - Nay
 
-  if(kerrors12 < kerrors34){
+  if(kerrors12 < kerrors34){ #Towards dems
       pol[i] <- -1
   }
-  if(kerrors12 >= kerrors34){
+  if(kerrors12 >= kerrors34){ #Towards reps
       pol[i] <- 1
 } }
 
