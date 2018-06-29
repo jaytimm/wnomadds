@@ -1,3 +1,8 @@
+wnomadds
+--------
+
+A simple collection of functions based on the `wnominate` package.
+
 ``` r
 library(wnomadds)#devtools::install_github("jaytimm/wnomadds")
 library(nmlegisdatr)#devtools::install_github("jaytimm/nmlegisdatr")
@@ -8,6 +13,8 @@ library(tidyverse)
 library(wnominate)
 library(pscl)
 ```
+
+### Prepare data & run model
 
 ``` r
 datFile <- nmlegisdatr::nml_rollcall  %>%
@@ -74,8 +81,10 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.49 seconds to execute.
+## W-NOMINATE took 2.37 seconds to execute.
 ```
+
+### Plot two-dimensional model
 
 ``` r
 row.names(resultd2$rollcalls) <- colnames(datFile)[2:ncol(datFile)]
@@ -84,7 +93,7 @@ row.names(resultd2$rollcalls) <- colnames(datFile)[2:ncol(datFile)]
 Extract legislators from `nom` object. And add legislator details from `nmlegisdatr`.
 
 ``` r
-house_data <- resultd2$legislators %>% #May need to remove NAs
+house_data <- resultd2$legislators %>% 
   bind_cols(nml_legislators %>% 
               filter(Chamber == 'House' & !grepl('^LT', Representative))) 
 ```
@@ -113,6 +122,8 @@ house_data%>%
 
 ![](figure-markdown_github/unnamed-chunk-10-1.png)
 
+### Using `wnomadds`
+
 Demonstrate how to extract cutting lines using `wnom_adds`.
 
 ``` r
@@ -122,6 +133,8 @@ with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, rollcall_obj = datRC)
 ## Warning in FUN(newX[, i], ...): Couldn't solve for points on the unit circle!
 #Suppress warnings
 ```
+
+The function returns cutline coordinates along with vote polarity.
 
 ``` r
 head(with_cuts)
