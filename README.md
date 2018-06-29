@@ -81,7 +81,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.37 seconds to execute.
+## W-NOMINATE took 2.34 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -188,7 +188,7 @@ ggplot () +
 Cutting line selections.
 
 ``` r
-select_cuts <- c("HM054")
+select_cuts <- c("HB0079")
 
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_ID %in% select_cuts) %>%
