@@ -127,9 +127,8 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 
     if( q2$Freq[q2$Var2=='TRUE'] >  q2$Freq[q2$Var2=='FALSE']){ #Towards dems
       pol[i] <- 1} else {pol[i] <- -1}
-} }
-
-pol}
+  }
+  pol}
 
 
 #Modified from wnominate package
