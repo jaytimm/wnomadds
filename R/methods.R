@@ -120,15 +120,16 @@ get_polarity <- function (x, rollcall_obj, cuts) {
     q1 <- lm(q$y ~ q$x)
     ln <- q1$coefficients[2]*leg1 + q1$coefficients[1]
     ln <- data.frame(cbind(ln, vote=as.integer(x2[,i])))
-    ln <- subset(ln, vote==1)
-    ln$pol <- ln$ln > 0
+    ln$pol <- ln$ln < 0
 
-    q2 <- data.frame(table(ln$vote,ln$pol))
+    q2 <- data.frame(table(ln$vote,ln$pol), stringsAsFactors = FALSE)
+    q2 <- subset(q2, Var1 == 1)
+    q2 <- q2[which.max(q2$Freq),]
 
-    if( q2$Freq[q2$Var2=='TRUE'] >  q2$Freq[q2$Var2=='FALSE'] ) { #Towards dems
-      pol[i] <- 1} else {
-        pol[i] <- -1}
+    if ( q2$Var2=='TRUE') {
+      pol[i] <- -1} else {pol[i] <- 1}
   }
+
   pol}
 
 
