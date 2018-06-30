@@ -67,26 +67,16 @@ wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
 }
 
 
-#i <- 8
-
 get_arrows <- function(cuts, arrow_length = 0.05){
 
   arrows <- data.frame()
   for (i in 1:nrow(cuts)) {
 
   v <- c(cuts$x_2[i]- cuts$x_1[i], cuts$y_2[i] - cuts$y_1[i]) # calculate vector
-  #v <- v/sqrt((v[1]**2 + v[2]**2)) # normalize vector
-  #vnp <- c( -v[2], v[1] ) # perpendicular unit vector
 
   if (cuts$pol[i] == -1) {vnp <- c( v[2], -v[1] )} else {
-    vnp <- c( -v[2], v[1] ) } #Flips results
+    vnp <- c( -v[2], v[1] ) }
 
-  #if (v[2]/v[1]>=0 && cuts$pol[i] == -1) vnp <- c( v[2], -v[1] )
-  #if (v[2]/v[1]>=0 && cuts$pol[i] == 1) vnp <- c( -v[2], v[1] )
-  #if (v[2]/v[1]<0 && cuts$pol[i] == -1) vnp <- c( -v[2], v[1] )
-  #if (v[2]/v[1]<0 && cuts$pol[i] == 1) vnp <- c( v[2], -v[1] )
-
-  #Also, simply adding polarity*arrow_length worked, just not perpendicular
   arrows <- rbind(arrows,
                   data.frame(x_1a = cuts$x_1[i] + arrow_length*vnp[1],
                              y_1a = cuts$y_1[i] + arrow_length*vnp[2],
@@ -99,13 +89,7 @@ get_arrows <- function(cuts, arrow_length = 0.05){
 }
 
 
-#
 
-
-#x <- resultd2
-#rollcall_obj <- datRC
-#i <- 15
-#Modified from NOMINATE code
 get_polarity <- function (x, rollcall_obj, cuts) {
 
   pol <- vector()
