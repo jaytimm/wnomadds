@@ -41,6 +41,7 @@ add.cutline <- function(cutData,weight) {
 }
 
 
+#x <- resultd2
 #Modified from wnominate package
 #' @export
 #' @rdname get_cut_data
@@ -48,7 +49,7 @@ wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
 
     weight<-x$weight[dims[2]]/x$weight[dims[1]]
 
-    contrained <- ((abs(x$rollcalls[,paste("spread",dims[1],"D",sep="")]) > 0.0 |
+    constrained <- ((abs(x$rollcalls[,paste("spread",dims[1],"D",sep="")]) > 0.0 |
                  abs(x$rollcalls[,paste("spread",dims[2],"D",sep="")]) > 0.0)
                  & (x$rollcalls[,paste("midpoint",dims[1],"D",sep="")]**2 +
                  x$rollcalls[,paste("midpoint",dims[2],"D",sep="")]**2) < .95)
