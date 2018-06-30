@@ -1,7 +1,7 @@
 wnomadds
 --------
 
-A simple collection of functions based on the `wnominate` package.
+This package performs two simple tasks based on the `wnominate` package: \* cutting lines \* angles
 
 ``` r
 library(wnomadds)#devtools::install_github("jaytimm/wnomadds")
@@ -81,7 +81,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 2.46 seconds to execute.
+## W-NOMINATE took 2.38 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -99,15 +99,12 @@ house_data <- resultd2$legislators %>%
 ```
 
 ``` r
-library(ggthemes)
-
 house_data%>%
   ggplot(aes(x=coord1D, y=coord2D)) +
   geom_point(aes(color = Party),
              size= 2.5, 
              shape= 17) +
-  scale_colour_stata() + 
-  #theme_fivethirtyeight() +
+  nml_color_party()+ 
   theme(legend.position = 'bottom', 
         plot.title = element_text(size=13), 
         axis.title = element_text(size=10)) +
@@ -116,7 +113,8 @@ house_data%>%
             check_overlap = TRUE, 
             hjust = 0, 
             nudge_x = 0.03)+
-  labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
+  labs(title="New Mexico's 53rd Congress - Lower Chamber - 2nd Session",
+       subtitle = 'Legislator coordinates') +
   coord_equal(ratio=1) 
 ```
 
@@ -158,10 +156,8 @@ Plot legislators with cutting lines.
 
 ``` r
 ggplot () + 
-  scale_colour_stata() + 
-  theme_fivethirtyeight() +
-  theme(plot.title = element_text(size=13),
-        legend.position = 'bottom') +
+  nml_color_party() +
+  theme(legend.position = 'bottom') +
   geom_point(data=house_data, 
                aes(x=coord1D, y=coord2D,color = Party),
                size= 2.5, 
@@ -180,7 +176,8 @@ ggplot () +
                nudge_y = 0.03,
                check_overlap = TRUE) +
   coord_fixed(ratio=1) + 
-  labs(title="Cutting lines for New Mexico's 53rd Lower Chamber - 2nd Session")
+  labs(title="New Mexico's 53rd Congress - Lower Chamber - 2nd Session",
+       subtitle = 'Cutting lines & legislator coordinates')
 ```
 
 ![](figure-markdown_github/unnamed-chunk-13-1.png)
@@ -227,7 +224,8 @@ ggplot(aes(x=coord1D, y=coord2D)) +
                size=2.5, 
                nudge_y = 0.03,
                check_overlap = TRUE) +
-  labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
+  labs(title="New Mexico's 53rd Congress - Lower Chamber - 2nd Session",
+       subtitle = 'Roll call & cutting line for House Bill 128') +
   coord_equal(ratio=1) 
 ```
 
@@ -272,13 +270,65 @@ ggplot(aes(x=coord1D, y=coord2D)) +
   geom_segment(data=cut_sub, 
                aes(x = x_1, y = y_1, xend = x_1a, yend = y_1a), 
                arrow = arrow(length = unit(0.2,"cm")))+
-  labs(title="New Mexico 53rd House Roll Call - 2nd Session") +
+  labs(title="New Mexico's 53rd Congress - Lower Chamber - 2nd Session",
+       subtitle = 'Selected roll calls & cutting lines') +
   coord_equal(ratio=1)+
   facet_wrap(~Bill_ID, ncol = 4)
 ```
 
 ![](figure-markdown_github/unnamed-chunk-17-1.png)
 
+### Extracting cutting line angles
+
+Cutting line angles can be useful in identifying legislation that ....
+
 ``` r
-  #
+wnomadds::wnom_adds_get_angles(resultd2)
+##          Bill_ID     angle
+## 1         HB0002  99.05992
+## 2  HB0002HCONCUR 145.35812
+## 3         HB0003  99.05992
+## 4         HB0026 130.37835
+## 5         HB0027  90.67409
+## 6         HB0032  78.12439
+## 7         HB0038  72.39469
+## 8         HB0049 119.98586
+## 9         HB0064  85.84058
+## 10        HB0079 114.05671
+## 11        HB0086 128.01552
+## 12        HB0088  83.69249
+## 13        HB0098 126.73838
+## 14        HB0100  56.47210
+## 15        HB0128 150.82107
+## 16        HB0147  26.36730
+## 17        HB0151  99.04523
+## 18        HB0158 119.40342
+## 19        HB0191 108.41618
+## 20        HB0201 171.13636
+## 21        HB0235  40.75652
+## 22        HB0319  90.00000
+## 23        HB0325  88.68296
+## 24        HJM009  96.94850
+## 25        HJM010  86.01559
+## 26        HJR001  82.65788
+## 27         HM009 116.38980
+## 28         HM054  94.57762
+## 29         HM055  60.50492
+## 30         HM056  60.50492
+## 31         HM090  60.50492
+## 32         HM094  60.50492
+## 33         HM097  60.50492
+## 34         HM103  60.50492
+## 35         HM104  60.50492
+## 36         HM106  60.50492
+## 37        SB0017 131.16694
+## 38        SB0018 120.79985
+## 39        SB0079  87.51689
+## 40  SB0079HTABLE 100.64087
+## 41        SB0109  78.51012
+## 42        SB0176  90.00000
+## 43        SB0178  87.57717
+## 44        SB0189 106.69100
+## 45        SJM008  60.50492
+## 46        SJM015  60.50492
 ```
