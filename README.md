@@ -89,7 +89,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.47 seconds to execute.
+## W-NOMINATE took 5.42 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -239,9 +239,9 @@ View multiple roll calls.
 
 ``` r
 select_cuts <- with_cuts$Bill_Code[61:72]
-select_cuts <- c('R18_HB0129', 'R18_SB0018', 'R18_SB0176',
+select_cuts <- c('R18_HB0129', 'R18_SB0018', 'R18_SB0176', 'R18_SM023',
                  'R18_SB0040', 'S17_HB0002', 'R18_SM003', 'R18_SM094', 
-                 'R18_SM023')
+                 'R17_HB0202', 'R17_HB0442', 'R17_SB0095', 'R17_SB0140')
 
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_Code %in% select_cuts) %>%
