@@ -89,7 +89,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.47 seconds to execute.
+## W-NOMINATE took 5.45 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -110,15 +110,15 @@ house_data <- resultd2$legislators %>%
 house_data%>%
   ggplot(aes(x=coord1D, y=coord2D)) +
   geom_point(aes(color = Party),
-             size= 2.5, 
+             size= 3, 
              shape= 17) +
   nml_color_party()+ 
   theme(legend.position = 'bottom') +
   geom_text(aes(label=Representative), 
             size=2.5, 
             check_overlap = TRUE, 
-            hjust = 0, 
-            nudge_x = 0.03)+
+            hjust = "inward",
+            nudge_y = -0.03)+
   coord_fixed(ratio=1)  +
   labs(title="New Mexico's 53rd Congress - Upper Chamber",
        subtitle = 'Legislator coordinates') 
@@ -164,7 +164,7 @@ ggplot () +
   theme(legend.position = 'bottom') +
   geom_point(data=house_data, 
                aes(x=coord1D, y=coord2D,color = Party),
-               size= 2.5, 
+               size= 3, 
                shape= 17) +
   geom_segment(data=with_cuts, 
                aes(x = x_1, y = y_1, xend = x_2, yend = y_2)) +
@@ -211,8 +211,8 @@ ggplot(aes(x=coord1D, y=coord2D)) +
   geom_text(aes(label=Representative), 
             size=2.5, 
             check_overlap = TRUE, 
-            hjust = 0, 
-            nudge_x = 0.03)+
+            hjust = "inward",
+            nudge_y = -0.03)+
   geom_segment(data=cut_sub, 
                aes(x = x_1, y = y_1, xend = x_2, yend = y_2)) +
   geom_segment(data=cut_sub, 
@@ -253,16 +253,16 @@ cut_sub <- subset(with_cuts, Bill_Code %in% select_cuts)
 sub %>%
 ggplot(aes(x=coord1D, y=coord2D)) +
   geom_point(aes(color = Party_Vote, shape= Party_Vote, fill = Party_Vote),
-             size= 1) +
+             size= 1.5) +
   nmlegisdatr::nml_color_vote() +
   nmlegisdatr::nml_fill_vote() +
   nmlegisdatr::nml_shape_vote()+
   theme(legend.position = 'bottom') +
   geom_text(aes(label=Representative), 
-            size=1, 
+            size=1.5, 
             check_overlap = TRUE, 
-            hjust = 0, 
-            nudge_x = 0.03)+
+            hjust = "inward",
+            nudge_y = -0.03)+
   geom_segment(data=cut_sub, 
                aes(x = x_1, y = y_1, xend = x_2, yend = y_2)) +
   geom_segment(data=cut_sub, 
