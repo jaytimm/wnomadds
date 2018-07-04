@@ -89,7 +89,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.42 seconds to execute.
+## W-NOMINATE took 5.56 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -255,13 +255,13 @@ cut_sub <- subset(with_cuts, Bill_Code %in% select_cuts)
 sub %>%
 ggplot(aes(x=coord1D, y=coord2D)) +
   geom_point(aes(color = Party_Vote, shape= Party_Vote, fill = Party_Vote),
-             size= 2) +
+             size= 1.5) +
   nmlegisdatr::nml_color_vote() +
   nmlegisdatr::nml_fill_vote() +
   nmlegisdatr::nml_shape_vote()+
   theme(legend.position = 'bottom') +
   geom_text(aes(label=Representative), 
-            size=2, 
+            size=1.5, 
             check_overlap = TRUE, 
             hjust = 0, 
             nudge_x = 0.03)+
