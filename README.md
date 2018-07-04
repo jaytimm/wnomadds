@@ -236,15 +236,14 @@ ggplot(aes(x=coord1D, y=coord2D)) +
 View multiple roll calls.
 
 ``` r
-select_cuts <- with_cuts$Bill_Code[61:72]
+#select_cuts <- with_cuts$Bill_Code[112:123]
 select_cuts <- c('R18_HB0129', 'R18_SB0018', 'R18_SB0176', 'R18_SM023',
-                 'R18_SB0040', 'S17_HB0002', 'R18_SM003', 'R18_SM094', 
-                 'R17_HB0202', 'R17_HB0442', 'R17_SB0095', 'R17_SB0140')
+                 'R18_SB0040', 'S17_HB0002', 'R18_SM003', 'R17_SB0188', 
+                 'R18_HB0079', 'R17_HB0442', 'R17_0158', 'R17_SB0140')
 
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_Code %in% select_cuts) %>%
   inner_join(house_data)
-## Joining, by = c("Chamber", "Representative")
 
 cut_sub <- subset(with_cuts, Bill_Code %in% select_cuts)
 ```
