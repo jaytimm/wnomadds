@@ -89,7 +89,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.83 seconds to execute.
+## W-NOMINATE took 5.47 seconds to execute.
 ```
 
 ### Plot two-dimensional model
