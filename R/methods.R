@@ -63,7 +63,7 @@ wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
     cutvector1[cutvector2<0] <- -cutvector1[cutvector2<0]
     cutvector2[cutvector2<0] <- -cutvector2[cutvector2<0]
 
-    data.frame(Bill_ID=ns <- na.omit(row.names(x$rollcalls)[contrained]),
+    data.frame(Bill_Code=ns <- na.omit(row.names(x$rollcalls)[contrained]),
                angle=atan2(cutvector2,cutvector1)*180/pi, stringsAsFactors = FALSE)
 }
 
@@ -95,9 +95,9 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 
   pol <- vector()
 
-  x1 <- x$rollcalls[cuts$Bill_ID,]
+  x1 <- x$rollcalls[cuts$Bill_Code,]
   leg1 <-  x$legislators$coord1D
-  x2 <- rollcall_obj$votes[,cuts$Bill_ID]
+  x2 <- rollcall_obj$votes[,cuts$Bill_Code]
 
 
   for (i in 1:nrow(cuts)) {
@@ -139,12 +139,12 @@ wnom_adds_get_cutlines <- function(x,
         weight=x$weights[dims[2]]/x$weights[dims[1]])
   names(cuts) <- ns
 
-  cuts <- data.table::rbindlist(cuts, id = 'Bill_ID')
+  cuts <- data.table::rbindlist(cuts, id = 'Bill_Code')
   cuts <- cuts[complete.cases(cuts),]
-  cuts$id <- rep(1:2, length(unique(cuts$Bill_ID)))
-  cuts <- data.table::melt(cuts, c('Bill_ID','id'), c('x','y'),
+  cuts$id <- rep(1:2, length(unique(cuts$Bill_Code)))
+  cuts <- data.table::melt(cuts, c('Bill_Code','id'), c('x','y'),
               variable.name="variable", value.name="value")
-  cuts <- data.table::dcast (cuts, Bill_ID ~ paste0(variable,"_",id), value.var = "value")
+  cuts <- data.table::dcast (cuts, Bill_Code ~ paste0(variable,"_",id), value.var = "value")
 
   if (add_arrows) {
     cuts$pols <- get_polarity(x, rollcall_obj, cuts)
