@@ -89,7 +89,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.51 seconds to execute.
+## W-NOMINATE took 5.83 seconds to execute.
 ```
 
 ### Plot two-dimensional model
@@ -207,9 +207,7 @@ ggplot(aes(x=coord1D, y=coord2D)) +
   nmlegisdatr::nml_color_vote() +
   nmlegisdatr::nml_fill_vote() +
   nmlegisdatr::nml_shape_vote()+
-  theme(legend.position = 'bottom', 
-        plot.title = element_text(size=13), 
-        axis.title = element_text(size=10)) +
+  theme(legend.position = 'bottom') +
   geom_text(aes(label=Representative), 
             size=2.5, 
             check_overlap = TRUE, 
