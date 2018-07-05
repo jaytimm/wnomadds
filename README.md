@@ -109,7 +109,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.41 seconds to execute.
+## W-NOMINATE took 5.43 seconds to execute.
 ```
 
 ``` r
@@ -150,7 +150,7 @@ house_data%>%
 
 ### `wnomadds::get_cutlines()`
 
-The `get_cutlines()` function returns a data frame of cutting line coordinates. The function takes a `nomObj` object and a roll call object (from call to `pscl::rollcall`). If the `add_arrows` parameter is set to `TRUE`, additionally included in the data frame are coordinates of a vector perpendicular to cutting line ends in order to draw arrows in the direction of vote consensus.
+The `get_cutlines()` function returns a data frame of cutting line coordinates. The function takes a `nomObj` object and a roll call object (from call to `pscl::rollcall`). If the `add_arrows` parameter is set to `TRUE`, additionally included in the data frame are coordinates of points perpendicular to cutting line ends in order to draw arrows in the direction of vote consensus. Arrow length can be specified by the `arrow_length` parameter.
 
 ``` r
 with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, 
@@ -188,6 +188,8 @@ head(with_cuts)
 
 #### Plot legislators coordinates & cutting lines with arrows indicating polarity
 
+The four sets of points included in the output of `wnomadds::get_angles` can be used to create three line segments via `geom_plot`: cutting start to cutting end, cutting start to opposite arrow, and cutting end to opposite arrow.
+
 ``` r
 ggplot () + 
   nml_color_party() +
@@ -197,12 +199,12 @@ ggplot () +
                size= 3, 
                shape= 17) +
   geom_segment(data=with_cuts, 
-               aes(x = x_1, y = y_1, xend = x_2, yend = y_2)) +
+               aes(x = x_1, y = y_1, xend = x_2, yend = y_2)) + #cutting start to end
   geom_segment(data=with_cuts, 
-               aes(x = x_2, y = y_2, xend = x_2a, yend = y_2a), 
+               aes(x = x_2, y = y_2, xend = x_2a, yend = y_2a), #cutting end to opposite arrow
                arrow = arrow(length = unit(0.2,"cm"))) +
   geom_segment(data=with_cuts, 
-               aes(x = x_1, y = y_1, xend = x_1a, yend = y_1a), 
+               aes(x = x_1, y = y_1, xend = x_1a, yend = y_1a), #cutting start to opposite arrow
                arrow = arrow(length = unit(0.2,"cm")))+
   geom_text(data=with_cuts, 
                aes(x = x_1a, y = y_1a, label = Bill_Code), 

@@ -45,7 +45,7 @@ add.cutline <- function(cutData,weight) {
 #Modified from wnominate package
 #' @export
 #' @rdname get_cut_data
-wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
+get_angles <- function(x, dims=c(1,2),...) {
 
     weight<-x$weight[dims[2]]/x$weight[dims[1]]
 
@@ -121,7 +121,7 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 #Modified from wnominate package
 #' @export
 #' @rdname get_cut_data
-wnom_adds_get_cutlines <- function(x,
+get_cutlines <- function(x,
           dims=c(1,2),
           add_arrows = TRUE,
           arrow_length,

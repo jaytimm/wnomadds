@@ -3,16 +3,16 @@
 \name{get_cut_data}
 \alias{get_cut_data}
 \alias{add.cutline}
-\alias{wnom_adds_get_angles}
-\alias{wnom_adds_get_cutlines}
+\alias{get_angles}
+\alias{get_cutlines}
 \title{Build/extract cutline data}
 \usage{
 add.cutline(cutData, weight)
 
-wnom_adds_get_angles(x, dims = c(1, 2), ...)
+get_angles(x, dims = c(1, 2), ...)
 
-wnom_adds_get_cutlines(x, dims = c(1, 2), add_arrows = TRUE, rollcall_obj,
-  ...)
+get_cutlines(x, dims = c(1, 2), add_arrows = TRUE, arrow_length,
+  rollcall_obj, ...)
 }
 \arguments{
 \item{x}{A nomObj via wnominate::wnominate output}
