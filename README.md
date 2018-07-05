@@ -24,7 +24,7 @@ devtools::install_github("jaytimm/wnomadds")
 Usage
 -----
 
-To demonstrate the functionality of `wnomadds`, we first build a `wnominate` model using roll call data from the 53rd Congress of the New Mexico State Legislature made available via the `nmlegisdatr` package.
+To demonstrate the functionality of `wnomadds`, we first build a `wnominate` model using roll call data from the **53rd Congress of the New Mexico State Legislature** made available via the `nmlegisdatr` package.
 
 ``` r
 library(wnomadds)
@@ -43,7 +43,6 @@ datFile <- nmlegisdatr::nml_rollcall  %>%
   filter(Chamber =='Senate' & !grepl('^LT', Representative)) %>%
   dplyr::select(Representative, Bill_Code, Rep_Vote) %>%
   spread(key= Bill_Code, value = Rep_Vote)
-## Warning: package 'bindrcpp' was built under R version 3.4.4
 ```
 
 #### Create rollcall object
@@ -107,7 +106,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.32 seconds to execute.
+## W-NOMINATE took 5.36 seconds to execute.
 ```
 
 ``` r
@@ -152,11 +151,9 @@ Demonstrate how to extract cutting lines using `wnom_adds`.
 
 ``` r
 with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, rollcall_obj = datRC)
-## Warning in FUN(newX[, i], ...): Couldn't solve for points on the unit circle!
-#Suppress warnings
 ```
 
-The function returns cutline coordinates along with vote polarity.
+#### Sample output
 
 ``` r
 head(with_cuts)
@@ -176,7 +173,7 @@ head(with_cuts)
 ## 6: -0.7974217 -0.1005658  0.9670803
 ```
 
-Plot legislators with cutting lines.
+#### Plot legislators coordinates & cutting lines with polarity arrows
 
 ``` r
 ggplot () + 
@@ -206,7 +203,7 @@ ggplot () +
 
 ![](figure-markdown_github/unnamed-chunk-13-1.png)
 
-Cutting line selections.
+#### Select single cutting line
 
 ``` r
 select_cuts <- c('R18_SB0018')
@@ -214,10 +211,11 @@ select_cuts <- c('R18_SB0018')
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_Code %in% select_cuts) %>%
   inner_join(house_data)
-## Joining, by = c("Chamber", "Representative")
 
 cut_sub <- subset(with_cuts, Bill_Code %in% select_cuts)
 ```
+
+#### Plot single cutting line
 
 ``` r
 sub %>%
@@ -253,7 +251,7 @@ ggplot(aes(x=coord1D, y=coord2D)) +
 
 ![](figure-markdown_github/unnamed-chunk-15-1.png)
 
-View multiple roll calls.
+#### Select multiple cutting lines
 
 ``` r
 #select_cuts <- with_cuts$Bill_Code[112:123]
@@ -267,6 +265,8 @@ sub <- nmlegisdatr::nml_rollcall %>%
 
 cut_sub <- subset(with_cuts, Bill_Code %in% select_cuts)
 ```
+
+#### Facet plot of multiple cutting lines
 
 ``` r
 sub %>%
@@ -300,7 +300,7 @@ ggplot(aes(x=coord1D, y=coord2D)) +
 
 ### Extracting cutting line angles
 
-Cutting line angles can be useful in identifying legislation that ....
+Cutting line angles can be extracted from a `nomObj` object using `wnomadds::get_angles()`. Output is a simple data frame.
 
 ``` r
 angles <- wnomadds::wnom_adds_get_angles(resultd2)
