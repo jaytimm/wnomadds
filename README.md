@@ -7,12 +7,6 @@ An R package that provides (very unofficial) add-on functionality to the `wnomin
 
 Functions ulimately facilitate more control over plot aesthetics within the `ggplot` framework
 
-Table of Contents
------------------
-
--   [Installation](#installation)
--   [Usage](#usage)
-
 ------------------------------------------------------------------------
 
 Installation
@@ -108,7 +102,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.5 seconds to execute.
+## W-NOMINATE took 5.36 seconds to execute.
 ```
 
 ``` r
