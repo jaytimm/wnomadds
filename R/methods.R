@@ -150,5 +150,5 @@ wnom_adds_get_cutlines <- function(x,
   if (add_arrows) {
     cuts$pols <- get_polarity(x, rollcall_obj, cuts)
     fin_cuts <- get_arrows (cuts, arrow_length = 0.05)
-    fin_cuts[, -c('pols')] } else { cuts}
+    subset(fin_cuts, select = -c(pols)) } else { cuts}
 }
