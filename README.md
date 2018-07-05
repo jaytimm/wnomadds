@@ -14,6 +14,8 @@ Table of Contents
 -   [Usage](#usage)
 -   [Sources](#sources)
 
+------------------------------------------------------------------------
+
 Installation
 ------------
 
@@ -33,6 +35,8 @@ library(tidyverse)
 library(wnominate)
 library(pscl)
 ```
+
+------------------------------------------------------------------------
 
 ### Prepare data & run `wnominate` model
 
@@ -56,9 +60,8 @@ datRC <- pscl::rollcall(datFile [,-1],
                         legis.names = datFile$Representative)
 ```
 
-Swap yea/nay/not voting to 1/6/9
-
 ``` r
+#Swap yea/nay/not voting to 1/6/9 --  easier downstream.
 datRC$votes [datRC$votes == 'Excused' | datRC$votes == 'Absent' | datRC$votes == 'Rec'] <- 9
 datRC$votes [datRC$votes == 'Yea'] <- 1
 datRC$votes [datRC$votes == 'Nay'] <- 6 
@@ -143,7 +146,9 @@ house_data%>%
 
 ![](figure-markdown_github/unnamed-chunk-10-1.png)
 
-### Using `wnomadds`
+------------------------------------------------------------------------
+
+### `wnomadds::get_cutlines()`
 
 Extracts cutting line coordinates. which subsequently enables/facilitates .... via some fairly straightforward maths to ... Methods have been added that identify the polarity of roll call results. Calculate coordinates of a vector perpendicular to cutting line ends in order to draw arrows in the direction of vote consensus.
 
@@ -154,6 +159,8 @@ with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, rollcall_obj = datRC)
 ```
 
 #### Sample output
+
+Output includes the x-y coordinates of cutting line
 
 ``` r
 head(with_cuts)
@@ -298,7 +305,9 @@ ggplot(aes(x=coord1D, y=coord2D)) +
 
 ![](figure-markdown_github/unnamed-chunk-17-1.png)
 
-### Extracting cutting line angles
+------------------------------------------------------------------------
+
+### `wnomadds::get_angles()`
 
 Cutting line angles can be extracted from a `nomObj` object using `wnomadds::get_angles()`. Output is a simple data frame.
 
