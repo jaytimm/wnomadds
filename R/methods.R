@@ -145,7 +145,7 @@ wnom_adds_get_cutlines <- function(x,
   cuts <- data.table::melt(cuts, c('Bill_Code','id'), c('x','y'),
               variable.name="variable", value.name="value")
   cuts <- data.table::dcast (cuts, Bill_Code ~ paste0(variable,"_",id), value.var = "value")
-  cuts <- cuts[, c('x_1','y_1', 'x_2', 'y_2'), with = FALSE]
+  cuts <- cuts[, c('Bill_ID', 'x_1','y_1', 'x_2', 'y_2')]#, with = FALSE
 
   if (add_arrows) {
     cuts$pols <- get_polarity(x, rollcall_obj, cuts)
