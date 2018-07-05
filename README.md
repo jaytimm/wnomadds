@@ -109,7 +109,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.36 seconds to execute.
+## W-NOMINATE took 5.41 seconds to execute.
 ```
 
 ``` r
@@ -150,27 +150,33 @@ house_data%>%
 
 ### `wnomadds::get_cutlines()`
 
-Extracts cutting line coordinates. which subsequently enables/facilitates .... via some fairly straightforward maths to ... Methods have been added that identify the polarity of roll call results. Calculate coordinates of a vector perpendicular to cutting line ends in order to draw arrows in the direction of vote consensus.
-
-Demonstrate how to extract cutting lines using `wnom_adds`.
+The `get_cutlines()` function returns a data frame of cutting line coordinates. The function takes a `nomObj` object and a roll call object (from call to `pscl::rollcall`). If the `add_arrows` parameter is set to `TRUE`, additionally included in the data frame are coordinates of a vector perpendicular to cutting line ends in order to draw arrows in the direction of vote consensus.
 
 ``` r
-with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, rollcall_obj = datRC)
+with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, 
+                                              rollcall_obj = datRC, 
+                                              add_arrows = TRUE,
+                                              arrow_length = 0.05)
 ```
 
 #### Sample output
 
-Output includes the x-y coordinates of cutting line
+Output effectively contains four sets of points:
+
+-   x\_1, y\_1: cutting line start
+-   x\_2, y\_2: cutting line end
+-   x\_1a, y\_1a: point perpendicular to cutting line start, `arrow_length` away in the direction of max Yea's
+-   x\_2a, y\_2a: point perpendicular to cutting line end, `arrow_length` away in the direction of max Yea's
 
 ``` r
 head(with_cuts)
-##      Bill_Code       x_1         x_2         y_1        y_2 pols      x_1a
-## 1:  R17_HB0001 0.7611899  0.66757317  0.64852911 -0.7445442   -1 0.6915362
-## 2: R17_HB00012 0.7611899  0.66757317  0.64852911 -0.7445442   -1 0.6915362
-## 3:  R17_HB0002 0.9781846 -0.21362665  0.20773749 -0.9769154   -1 0.9189520
-## 4:  R17_HB0063 0.7662343  0.47683292 -0.64256127  0.8789940    1 0.6901565
-## 5:  R17_HB0080 0.9974388 -0.66671682  0.07152501 -0.7453111   -1 0.9565970
-## 6:  R17_HB0086 0.6445311 -0.01234074 -0.76457809  0.9999239    1 0.5563060
+##      Bill_Code       x_1         y_1         x_2        y_2      x_1a
+## 1:  R17_HB0001 0.7611899  0.64852911  0.66757317 -0.7445442 0.6915362
+## 2: R17_HB00012 0.7611899  0.64852911  0.66757317 -0.7445442 0.6915362
+## 3:  R17_HB0002 0.9781846  0.20773749 -0.21362665 -0.9769154 0.9189520
+## 4:  R17_HB0063 0.7662343 -0.64256127  0.47683292  0.8789940 0.6901565
+## 5:  R17_HB0080 0.9974388  0.07152501 -0.66671682 -0.7453111 0.9565970
+## 6:  R17_HB0086 0.6445311 -0.76457809 -0.01234074  0.9999239 0.5563060
 ##          y_1a       x_2a       y_2a
 ## 1:  0.6532099  0.5979195 -0.7398634
 ## 2:  0.6532099  0.5979195 -0.7398634
@@ -180,7 +186,7 @@ head(with_cuts)
 ## 6: -0.7974217 -0.1005658  0.9670803
 ```
 
-#### Plot legislators coordinates & cutting lines with polarity arrows
+#### Plot legislators coordinates & cutting lines with arrows indicating polarity
 
 ``` r
 ggplot () + 
