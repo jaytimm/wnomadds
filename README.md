@@ -12,7 +12,6 @@ Table of Contents
 
 -   [Installation](#installation)
 -   [Usage](#usage)
--   [Sources](#sources)
 
 ------------------------------------------------------------------------
 
@@ -109,7 +108,7 @@ resultd2 <- wnominate::wnominate (datRC,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 5.43 seconds to execute.
+## W-NOMINATE took 5.59 seconds to execute.
 ```
 
 ``` r
@@ -150,10 +149,10 @@ house_data%>%
 
 ### `wnomadds::get_cutlines()`
 
-The `get_cutlines()` function returns a data frame of cutting line coordinates. The function takes a `nomObj` object and a roll call object (from call to `pscl::rollcall`). If the `add_arrows` parameter is set to `TRUE`, additionally included in the data frame are coordinates of points perpendicular to cutting line ends in order to draw arrows in the direction of vote consensus. Arrow length can be specified by the `arrow_length` parameter.
+The `get_cutlines()` function returns a data frame of cutting line coordinates. The function takes a `nomObj` object and a `rollcall` object (from call to `pscl::rollcall`). If the `add_arrows` parameter is set to `TRUE`, additionally included in the data frame are coordinates of points perpendicular to cutting line ends in the direction of maximum Yea's (per roll call). The distance between these points and the cutting line (ie, arrow length) can be specified by the `arrow_length` parameter.
 
 ``` r
-with_cuts <- wnomadds::wnom_adds_get_cutlines(resultd2, 
+with_cuts <- wnomadds::get_cutlines(resultd2, 
                                               rollcall_obj = datRC, 
                                               add_arrows = TRUE,
                                               arrow_length = 0.05)
@@ -186,9 +185,9 @@ head(with_cuts)
 ## 6: -0.7974217 -0.1005658  0.9670803
 ```
 
-#### Plot legislators coordinates & cutting lines with arrows indicating polarity
+#### Plot legislator coordinates & cutting lines with arrows indicating polarity
 
-The four sets of points included in the output of `wnomadds::get_angles` can be used to create three line segments via `geom_plot`: cutting start to cutting end, cutting start to opposite arrow, and cutting end to opposite arrow.
+The four sets of points included in the output of `wnomadds::get_cutlines` can be used to create three line segments via `geom_plot`: cutting start to cutting end, cutting start to opposite arrow, and cutting end to opposite arrow.
 
 ``` r
 ggplot () + 
@@ -320,7 +319,7 @@ ggplot(aes(x=coord1D, y=coord2D)) +
 Cutting line angles can be extracted from a `nomObj` object using `wnomadds::get_angles()`. Output is a simple data frame.
 
 ``` r
-angles <- wnomadds::wnom_adds_get_angles(resultd2)
+angles <- wnomadds::get_angles(resultd2)
 head(angles)
 ##     Bill_Code     angle
 ## 1  R17_HB0001  86.15542
