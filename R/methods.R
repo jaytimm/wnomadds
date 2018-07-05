@@ -68,7 +68,7 @@ wnom_adds_get_angles <- function(x, dims=c(1,2),...) {
 }
 
 
-get_arrows <- function(cuts, arrow_length = 0.05){
+get_arrows <- function(cuts, arrow_length = arrow_length){
 
   arrows <- data.frame()
   for (i in 1:nrow(cuts)) {
@@ -122,7 +122,10 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 #' @export
 #' @rdname get_cut_data
 wnom_adds_get_cutlines <- function(x,
-          dims=c(1,2), add_arrows = TRUE, rollcall_obj,...) {
+          dims=c(1,2),
+          add_arrows = TRUE,
+          arrow_length,
+          rollcall_obj,...) {
 
     constrained <- ((abs(x$rollcalls[,"spread1D"]) > 0.0 | abs(x$rollcalls[,"spread2D"]) > 0.0)
         & (x$rollcalls[,"midpoint1D"]**2 + x$rollcalls[,"midpoint2D"]**2) < .95)
