@@ -123,7 +123,6 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 #' @rdname get_cut_data
 get_cutlines <- function(x,
           dims=c(1,2),
-          add_arrows = TRUE,
           arrow_length,
           rollcall_obj,...) {
 
@@ -150,8 +149,7 @@ get_cutlines <- function(x,
   cuts <- data.table::dcast (cuts, Bill_Code ~ paste0(variable,"_",id), value.var = "value")
   cuts <- cuts[, c('Bill_Code', 'x_1','y_1', 'x_2', 'y_2')]#, with = FALSE
 
-  if (add_arrows) {
     cuts$pols <- get_polarity(x, rollcall_obj, cuts)
     fin_cuts <- get_arrows (cuts, arrow_length = 0.05)
-    subset(fin_cuts, select = -c(pols)) } else { cuts}
+    subset(fin_cuts, select = -c(pols))
 }
