@@ -42,11 +42,11 @@ voteview_pal <- c('#378dbf',
 
 #' @rdname scale_voteview
 #' @export
-voteview_pal
+voteview_pal <- voteview_pal
 
 #' @rdname scale_voteview
 #' @export
-party_pal
+party_pal <- party_pal
 
 #' @rdname scale_voteview
 #' @export

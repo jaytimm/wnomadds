@@ -4,6 +4,8 @@
 \name{scale_voteview}
 \alias{scale_voteview}
 \alias{vote}
+\alias{voteview_pal}
+\alias{party_pal}
 \alias{scale_color_rollcall}
 \alias{scale_color_party}
 \alias{scale_shape_rollcall}
@@ -11,6 +13,10 @@
 \format{An object of class \code{factor} of length 6.}
 \usage{
 vote
+
+voteview_pal
+
+party_pal
 
 scale_color_rollcall(...)
 
