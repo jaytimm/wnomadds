@@ -3,22 +3,25 @@
 \docType{data}
 \name{scale_voteview}
 \alias{scale_voteview}
-\alias{vote}
+\alias{Party_Member_Vote}
 \alias{voteview_pal}
 \alias{party_pal}
 \alias{scale_color_rollcall}
+\alias{scale_fill_rollcall}
 \alias{scale_color_party}
 \alias{scale_shape_rollcall}
 \title{NOMINATE/VoteView.com color palette}
 \format{An object of class \code{factor} of length 6.}
 \usage{
-vote
+Party_Member_Vote
 
 voteview_pal
 
 party_pal
 
 scale_color_rollcall(...)
+
+scale_fill_rollcall(...)
 
 scale_color_party(...)
 

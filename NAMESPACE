@@ -3,6 +3,7 @@
 export(party_pal)
 export(scale_color_party)
 export(scale_color_rollcall)
+export(scale_fill_rollcall)
 export(scale_shape_rollcall)
 export(voteview_pal)
 export(wnm_get_angles)
