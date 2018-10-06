@@ -5,7 +5,7 @@
 #' @name scale_voteview
 #'
 #Roll call votes by party affiliation.
-vote <- factor( c('Dem: Yea',
+Party_Member_Vote <- factor( c('Dem: Yea',
                   'Rep: Yea',
                   'Dem: Nay',
                   'Rep: Nay',
@@ -13,7 +13,7 @@ vote <- factor( c('Dem: Yea',
                   'Rep: Not Voting')
                 )
 
-vote <- factor(vote,
+Party_Member_Vote <- factor(Party_Member_Vote,
                levels(vote)[c(3,6,1,4,2,5)])
 
 
@@ -51,7 +51,7 @@ party_pal <- party_pal
 #' @rdname scale_voteview
 #' @export
 scale_color_rollcall <- function (...) {
-  ggplot2::scale_color_manual(name = "vote", values = voteview_pal, ...)
+  ggplot2::scale_color_manual(name = "Party_Member_Vote", values = voteview_pal, ...)
 }
 
 #' @rdname scale_voteview
@@ -63,5 +63,5 @@ scale_color_party <- function (...) {
 #' @rdname scale_voteview
 #' @export
 scale_shape_rollcall <- function (...) {
-  ggplot2::scale_shape_manual(name = "vote", values = vote_shapes, ...)
+  ggplot2::scale_shape_manual(name = "Party_Member_Vote", values = vote_shapes, ...)
 }
