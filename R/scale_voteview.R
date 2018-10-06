@@ -14,7 +14,7 @@ Party_Member_Vote <- factor( c('Dem: Yea',
                 )
 
 Party_Member_Vote <- factor(Party_Member_Vote,
-               levels(vote)[c(3,6,1,4,2,5)])
+               levels(Party_Member_Vote)[c(3,6,1,4,2,5)])
 
 
 #Roll call votes by party affiliation -- shapes.
