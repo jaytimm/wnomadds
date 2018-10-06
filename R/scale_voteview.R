@@ -51,7 +51,9 @@ party_pal <- party_pal
 #' @rdname scale_voteview
 #' @export
 scale_color_rollcall <- function (...) {
-  ggplot2::scale_color_manual(name = "Party_Member_Vote", values = voteview_pal, ...)
+  ggplot2::scale_color_manual(name = "Party_Member_Vote",
+                              values = voteview_pal,
+                              aesthetics = c("fill", "color") ...)
 }
 
 #' @rdname scale_voteview

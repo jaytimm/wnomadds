@@ -119,8 +119,10 @@ wnm_get_cutlines <- function(x,
   cuts$id <- rep(1:2, length(unique(cuts$Bill_Code)))
   cuts <- data.table::melt(cuts, c('Bill_Code','id'), c('x','y'),
               variable.name="variable", value.name="value")
-  cuts <- data.table::dcast (cuts, Bill_Code ~ paste0(variable,"_",id), value.var = "value")
-  cuts <- cuts[, c('Bill_Code', 'x_1','y_1', 'x_2', 'y_2')]#, with = FALSE
+  cuts <- data.table::dcast (cuts,
+                             Bill_Code ~ paste0(variable,"_",id),
+                             value.var = "value")
+  cuts <- cuts[, c('Bill_Code', 'x_1','y_1', 'x_2', 'y_2')]
 
     cuts$pols <- get_polarity(x, rollcall_obj, cuts)
     fin_cuts <- get_arrows (cuts, arrow_length = 0.05)
