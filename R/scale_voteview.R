@@ -63,5 +63,5 @@ scale_color_party <- function (...) {
 #' @rdname scale_voteview
 #' @export
 scale_shape_rollcall <- function (...) {
-  ggplot2::scale_shape_manual(name = "vote", values = voteview_pal, ...)
+  ggplot2::scale_shape_manual(name = "vote", values = vote_shapes, ...)
 }
