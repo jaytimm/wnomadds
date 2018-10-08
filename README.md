@@ -98,7 +98,7 @@ ideal_2d <- wnominate::wnominate (roll_obj,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 8.08 seconds to execute.
+## W-NOMINATE took 7.68 seconds to execute.
 ```
 
 ``` r
@@ -192,7 +192,7 @@ ggplot () +
 ``` r
 #select_cuts <- with_cuts$Bill_Code[112:123]
 select_cuts <- c('R18_HB0079', 'R17_HB0442', 'R17_HB0017',
-                 'R17_HB0086', 'R17_HB0125', 'R17_HB0138')
+                 'R17_HB0086', 'R17_HB0125', 'R17_HB0527')
 
 sub <- nmlegisdatr::nml_rollcall %>%
   filter(Bill_Code %in% select_cuts) %>%
