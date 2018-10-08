@@ -98,7 +98,7 @@ ideal_2d <- wnominate::wnominate (roll_obj,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 7.61 seconds to execute.
+## W-NOMINATE took 8.36 seconds to execute.
 ```
 
 ``` r
@@ -159,6 +159,11 @@ The four sets of points included in the output of `wnomadds::get_cutlines` can b
 ggplot () + 
   wnomadds::scale_color_party() +
   theme(legend.position = 'bottom') +
+          annotate("path",
+               x=cos(seq(0,2*pi,length.out=300)),
+               y=sin(seq(0,2*pi,length.out=300)),
+               color='lightgray',
+               size = .25) +
   geom_point(data=house_data, 
                aes(x=coord1D, y=coord2D,color = Party),
                size= 3, 
@@ -177,7 +182,7 @@ ggplot () +
                nudge_y = 0.03,
                check_overlap = TRUE) +
   coord_fixed(ratio=1) + 
-  labs(title="Loer chamber: Cutting lines & legislator coordinates")
+  labs(title="Lower chamber: Cutting lines & legislator coordinates")
 ```
 
 ![](figure-markdown_github/unnamed-chunk-12-1.png)
