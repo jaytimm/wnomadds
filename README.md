@@ -98,7 +98,7 @@ ideal_2d <- wnominate::wnominate (roll_obj,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 7.68 seconds to execute.
+## W-NOMINATE took 8.03 seconds to execute.
 ```
 
 ``` r
@@ -182,7 +182,7 @@ ggplot () +
                nudge_y = 0.03,
                check_overlap = TRUE) +
   coord_fixed(ratio=1) + 
-  labs(title="Lower chamber: Cutting lines & legislator coordinates")
+  labs(title="Lower Chamber: Cutting lines & legislator coordinates")
 ```
 
 ![](figure-markdown_github/unnamed-chunk-12-1.png)
@@ -241,7 +241,7 @@ ggplot(aes(x=coord1D, y=coord2D)) +
                size=2.25, 
                nudge_y = 0.1,
                check_overlap = TRUE) +
-  labs(title="Lower chamber: Selected roll calls & cutting lines") +
+  labs(title="Lower Chamber: Selected roll calls & cutting lines") +
   facet_wrap(~Bill_Title, labeller = label_wrap_gen(), ncol = 3) +
   theme(strip.text = element_text(size=7))
 ```
