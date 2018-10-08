@@ -19,7 +19,7 @@ library(wnomadds)
 Usage
 -----
 
-To demonstrate the functionality and utility of the `wnomadds` package, we first quickly walk through the NOMINATE ideal points estimation procedure via `wnominate` using roll call data from the **53rd Congress of the New Mexico State Legislature** made available via the `nmlegisdatr` package.
+To demonstrate the functionality and utility of the `wnomadds` package, we first quickly walk through the NOMINATE ideal points estimation procedure using roll call data from the **53rd Congress of the New Mexico State Legislature** (via the `nmlegisdatr` package).
 
 ``` r
 library(nmlegisdatr)#devtools::install_github("jaytimm/nmlegisdatr")
@@ -30,7 +30,7 @@ library(pscl)
 
 ### Prepare data & run wnominate model
 
-#### Reshape data for Senate roll calls
+#### Reshape data for House roll calls
 
 ``` r
 wide_rolls <- nmlegisdatr::nml_rollcall  %>%
@@ -98,7 +98,7 @@ ideal_2d <- wnominate::wnominate (roll_obj,
 ## 
 ## 
 ## W-NOMINATE estimation completed successfully.
-## W-NOMINATE took 8.03 seconds to execute.
+## W-NOMINATE took 8.27 seconds to execute.
 ```
 
 ``` r
