@@ -19,6 +19,7 @@ Party_Member_Vote <- factor(Party_Member_Vote,
 
 #Roll call votes by party affiliation -- shapes.
 vote_shapes <- c(24, 24, 25, 25, 21, 21)
+names(vote_shapes) <- Party_Member_Vote
 
 
 #Traditional party colors.
@@ -33,7 +34,7 @@ voteview_pal <- c('#378dbf',
                   '#f6b79b',
                   '#e4eef4',
                   '#fae9df')
-
+names(voteview_pal) <- Party_Member_Vote
 
 #scale_colour_manual(
 #  values = cols,
@@ -51,14 +52,14 @@ party_pal <- party_pal
 #' @rdname scale_voteview
 #' @export
 scale_color_rollcall <- function (...) {
-  ggplot2::scale_color_manual(name = "Party_Member_Vote", values = voteview_pal, ...)
-}
+  ggplot2::scale_color_manual(values = voteview_pal, ...)
+} #name = "Party_Member_Vote",
 
 #' @rdname scale_voteview
 #' @export
 scale_fill_rollcall <- function (...) {
-  ggplot2::scale_fill_manual(name = "Party_Member_Vote", values = voteview_pal, ...)
-}
+  ggplot2::scale_fill_manualvalues = voteview_pal, ...)
+}#(name = "Party_Member_Vote",
 
 #' @rdname scale_voteview
 #' @export
@@ -69,5 +70,5 @@ scale_color_party <- function (...) {
 #' @rdname scale_voteview
 #' @export
 scale_shape_rollcall <- function (...) {
-  ggplot2::scale_shape_manual(name = "Party_Member_Vote", values = vote_shapes, ...)
-}
+  ggplot2::scale_shape_manual(values = vote_shapes, ...)
+}#name = "Party_Member_Vote",
