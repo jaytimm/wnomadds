@@ -58,7 +58,7 @@ scale_color_rollcall <- function (...) {
 #' @rdname scale_voteview
 #' @export
 scale_fill_rollcall <- function (...) {
-  ggplot2::scale_fill_manualvalues = voteview_pal, ...)
+  ggplot2::scale_fill_manual(values = voteview_pal, ...)
 }#(name = "Party_Member_Vote",
 
 #' @rdname scale_voteview
