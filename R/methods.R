@@ -97,17 +97,23 @@ get_polarity <- function (x, rollcall_obj, cuts) {
 wnm_get_cutlines <- function(x,
           dims=c(1,2),
           arrow_length,
+          bill_id,
           rollcall_obj,...) {
 
-    constrained <- ((abs(x$rollcalls[,"spread1D"]) > 0.0 | abs(x$rollcalls[,"spread2D"]) > 0.0)
+  if (is.null(bill_id)) {
+    row.names(x$rollcalls) <- c(1:nrow(x$rollcalls))} else {
+      row.names(x$rollcalls) <- bill_id}
+
+
+  constrained <- ((abs(x$rollcalls[,"spread1D"]) > 0.0 | abs(x$rollcalls[,"spread2D"]) > 0.0)
         & (x$rollcalls[,"midpoint1D"]**2 + x$rollcalls[,"midpoint2D"]**2) < .95)
 
-    cutlineData <- cbind(x$rollcalls[constrained,paste("midpoint",dims[1],"D",sep="")],
+  cutlineData <- cbind(x$rollcalls[constrained,paste("midpoint",dims[1],"D",sep="")],
                      x$rollcalls[constrained,paste("spread",dims[1],"D",sep="")],
                      x$rollcalls[constrained,paste("midpoint",dims[2],"D",sep="")],
                      x$rollcalls[constrained,paste("spread",dims[2],"D",sep="")])
-    cutlineData <- na.omit(cutlineData)
-    ns <- na.omit(row.names(x$rollcalls)[constrained])
+  cutlineData <- na.omit(cutlineData)
+  ns <- na.omit(row.names(x$rollcalls)[constrained])
 
 
   cuts <- apply(cutlineData, 1, add.cutline,
